@@ -39,9 +39,8 @@ def index():
 @app.route("/post", methods=["POST"])
 def post():
     json = request.get_json()
-    print(json["EEG1"],json["EEG2"],json["EEG3"],json["EEG4"],json["EEG5"],json["AUX_LEFT"],json["AUX_RIGHT"])
-    cur.execute("INSERT INTO dementia_patients VALUES (%s,%s,%s,%s,%s,%s,%s,%s)",
-        (json["EEG1"],json["EEG2"],json["EEG3"],json["EEG4"],json["EEG5"],json["AUX_LEFT"],json["AUX_RIGHT"],"thing"))
+    cur.execute("INSERT INTO dementia_patients (eeg1, eeg2, eeg3, eeg4, aux1, aux2, objects) VALUES (%s,%s,%s,%s,%s,%s,%s)",
+        (json["EEG1"],json["EEG2"],json["EEG3"],json["EEG4"],json["AUX_LEFT"],json["AUX_RIGHT"],"thing"))
     return "success"
 
 if __name__ == "__main__":
