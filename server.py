@@ -40,7 +40,7 @@ def index():
 def post():
     json = request.get_json()
     print(json["EEG1"],json["EEG2"],json["EEG3"],json["EEG4"],json["EEG5"],json["AUX_LEFT"],json["AUX_RIGHT"])
-    cur.execute("INSERT INTO dementia_patients VALUES (%s,%s,%s,%s,%s,%s,%s)",
+    cur.execute("INSERT INTO dementia_patients VALUES (%s,%s,%s,%s,%s,%s,%s,%s)",
         (json["EEG1"],json["EEG2"],json["EEG3"],json["EEG4"],json["EEG5"],json["AUX_LEFT"],json["AUX_RIGHT"],"thing"))
     return "success"
 
