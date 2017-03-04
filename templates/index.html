@@ -1,0 +1,20 @@
+<!doctype html>
+<title>Upload new File</title>
+<h1>Upload new File</h1>
+{% if error == "part" %}
+  <h2>No file part</h2>
+{% elif error == "select" %}
+  <h2>No selected file</h2>
+{% elif error == "csv" %}
+  <h2>File format not supported</h2>
+  <h2>Please upload a <code>.csv</code></h2>
+{% elif error == "unknown" %}
+  <h2>Unkown error</h2>
+{% endif %}
+{% if success %}
+  <h2>Success!</h2>
+{% endif %}
+<form method=post enctype=multipart/form-data>
+    <p><input type=file name=file>
+        <input type=submit value=Upload>
+</form>
