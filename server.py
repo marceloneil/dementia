@@ -7,8 +7,8 @@ UPLOAD_FOLDER = os.path.realpath("upload")
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
-conn_string = "host='localhost' dbname='dementia' user='postgres'"
-conn = psycopg2.connect(conn_string)
+conn = psycopg2.connect(host='localhost', dbname='dementia', user='postgres', port=5432)
+conn.set_session(autocommit=True)
 cur = conn.cursor()
 
 def csv(filename):
@@ -42,7 +42,6 @@ def post():
     print(json["EEG1"],json["EEG2"],json["EEG3"],json["EEG4"],json["EEG5"],json["AUX_LEFT"],json["AUX_RIGHT"])
     cur.execute("INSERT INTO dementia_patients VALUES (%s,%s,%s,%s,%s,%s)",
         (json["EEG1"],json["EEG2"],json["EEG3"],json["EEG4"],json["EEG5"],json["AUX_LEFT"],json["AUX_RIGHT"],"thing"))
-    cur.commit()
     return "success"
 
 if __name__ == "__main__":
