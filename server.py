@@ -2,6 +2,8 @@ import os
 from flask import Flask, request, redirect, render_template, url_for, jsonify
 from werkzeug.utils import secure_filename
 import psycopg2
+import calendar
+import time
 
 UPLOAD_FOLDER = os.path.realpath('upload')
 app = Flask(__name__)
@@ -41,8 +43,8 @@ def index():
 def data():
     if request.method == 'POST':
         j = request.get_json()
-        cur.execute('INSERT INTO dementia_patients (eeg1, eeg2, eeg3, eeg4, aux1, aux2) VALUES (%s,%s,%s,%s,%s,%s)',
-            (j['EEG1'], j['EEG2'], j['EEG3'], j['EEG4'], j['AUX_LEFT'], j['AUX_RIGHT']))
+        cur.execute('INSERT INTO dementia_patients (timestamp, eeg1, eeg2, eeg3, eeg4, aux1, aux2) VALUES (%s,%s,%s,%s,%s,%s,%s)',
+            (calendar.timegm(time.gmtime()), j['EEG1'], j['EEG2'], j['EEG3'], j['EEG4'], j['AUX_LEFT'], j['AUX_RIGHT']))
         return 'success'
     elif request.method == 'DELETE':
         cur.execute('TRUNCATE TABLE dementia_patients')
