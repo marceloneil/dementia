@@ -1,5 +1,5 @@
 import os
-from flask import Flask, request, redirect, render_template, url_for
+from flask import Flask, request, redirect, render_template, url_for, jsonify
 from werkzeug.utils import secure_filename
 import psycopg2
 
@@ -57,7 +57,7 @@ def data():
     cur.execute('SELECT * FROM dementia_patients')
     data = cur.fetchall()
     print(data)
-    return flask.jsonify({"data": data})
+    return jsonify({"data": data})
     json = request.get_json()
 
 if __name__ == '__main__':
