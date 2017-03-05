@@ -57,7 +57,7 @@ def data():
     cur.execute('SELECT * FROM dementia_patients')
     data = cur.fetchall()
     print(data)
-    return data
+    return {"data": data}
     json = request.get_json()
 
 if __name__ == '__main__':
