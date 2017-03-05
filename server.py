@@ -44,7 +44,7 @@ def post():
         (json['EEG1'],json['EEG2'],json['EEG3'],json['EEG4'],json['AUX_LEFT'],json['AUX_RIGHT'],'thing'))
     return 'success'
 
-@app.route('/data')
+@app.route('/data', methods=['GET', 'POST', 'DELETE'])
 def data():
     if request.method == 'POST':
         json = request.get_json()
