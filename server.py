@@ -41,16 +41,23 @@ def index():
 def data():
     if request.method == 'POST':
         j = request.get_json()
-        cur.execute('INSERT INTO dementia_patients (eeg1, eeg2, eeg3, eeg4, aux1, aux2, objects) VALUES (%s,%s,%s,%s,%s,%s,%s)',
-            (j['EEG1'], j['EEG2'], j['EEG3'], j['EEG4'], j['AUX_LEFT'], j['AUX_RIGHT'], 'thing'))
+        cur.execute('INSERT INTO dementia_patients (eeg1, eeg2, eeg3, eeg4, aux1, aux2) VALUES (%s,%s,%s,%s,%s,%s)',
+            (j['EEG1'], j['EEG2'], j['EEG3'], j['EEG4'], j['AUX_LEFT'], j['AUX_RIGHT']))
         return 'success'
     elif request.method == 'DELETE':
         cur.execute('TRUNCATE TABLE dementia_patients')
         cur.execute('ALTER SEQUENCE dementia_patients_id_seq RESTART WITH 1;')
         return 'success'
-    cur.execute('SELECT * FROM dementia_patients')
-    data = cur.fetchall()
-    return jsonify({"data": data})
+    date1 = request.args.get('date1')
+    date2 = request.args.get('date2')
+    if date1 and date2:
+        cur.execute('SELECT * FROM dementia_patients WHERE thetimestamp BETWEEN %s AND %s', (date1, date2))
+        data = cur.fetchall()
+        return jsonify({"data": data})
+    else:
+        cur.execute('SELECT * FROM dementia_patients')
+        data = cur.fetchall()
+        return jsonify({"data": data})
 
 if __name__ == '__main__':
     app.run()
