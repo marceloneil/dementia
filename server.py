@@ -55,7 +55,9 @@ def data():
         cur.execute('TRUNCATE TABLE dementia_patients')
         return 'success'
     cur.execute('SELECT * FROM dementia_patients')
-    return cur.fetchall()
+    data = cur.fetchall()
+    print(data)
+    return data
     json = request.get_json()
 
 if __name__ == '__main__':
