@@ -1,5 +1,6 @@
 import os
 from flask import Flask, request, redirect, render_template, url_for, jsonify
+from flask_cors import CORS, cross_origin
 from werkzeug.utils import secure_filename
 import psycopg2
 import calendar
@@ -7,6 +8,7 @@ import time
 
 UPLOAD_FOLDER = os.path.realpath('upload')
 app = Flask(__name__)
+CORS(app)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 conn = psycopg2.connect(host='localhost', dbname='dementia', user='postgres', port=5432)
