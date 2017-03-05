@@ -52,7 +52,7 @@ def data():
         return 'success'
     date1 = request.args.get('date1')
     date2 = request.args.get('date2')
-    if date1 and date2 and int(date2) - int(date1) > 1:
+    if date1 and date2 and int(date2) > int(date1):
         cur.execute('SELECT * FROM dementia_patients WHERE timestamp BETWEEN %s AND %s', (date1, date2))
         data = cur.fetchall()
         return jsonify({"data": data})
