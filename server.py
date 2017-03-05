@@ -53,7 +53,7 @@ def data():
         return 'success'
     elif request.method == 'DELETE':
         cur.execute('TRUNCATE TABLE dementia_patients')
-        cur.execute('ALTER SEQUENCE seq RESTART WITH 1;')
+        cur.execute('ALTER SEQUENCE dementia_patients_id_seq RESTART WITH 1;')
         return 'success'
     cur.execute('SELECT * FROM dementia_patients')
     data = cur.fetchall()
