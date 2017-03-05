@@ -47,18 +47,17 @@ def post():
 @app.route('/data', methods=['GET', 'POST', 'DELETE'])
 def data():
     if request.method == 'POST':
-        json = request.get_json()
+        j = request.get_json()
         cur.execute('INSERT INTO dementia_patients (eeg1, eeg2, eeg3, eeg4, aux1, aux2, objects) VALUES (%s,%s,%s,%s,%s,%s,%s)',
-            (json['EEG1'],json['EEG2'],json['EEG3'],json['EEG4'],json['AUX_LEFT'],json['AUX_RIGHT'],'thing'))
+            (j['EEG1'], j['EEG2'], j['EEG3'], j['EEG4'], j['AUX_LEFT'], j['AUX_RIGHT'], 'thing'))
         return 'success'
     elif request.method == 'DELETE':
         cur.execute('TRUNCATE TABLE dementia_patients')
+        cur.execute('ALTER SEQUENCE seq RESTART WITH 1;')
         return 'success'
     cur.execute('SELECT * FROM dementia_patients')
     data = cur.fetchall()
-    print(data)
     return jsonify({"data": data})
-    json = request.get_json()
 
 if __name__ == '__main__':
     app.run()
