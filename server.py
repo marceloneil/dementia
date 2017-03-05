@@ -45,7 +45,6 @@ def index():
 def data():
     if request.method == 'POST':
         j = request.get_json()
-        print(j)
         cur.execute('INSERT INTO dementia_patients (timestamp, eeg1, eeg2, eeg3, eeg4, aux1, aux2) VALUES (%s,%s,%s,%s,%s,%s,%s)',
             (calendar.timegm(time.gmtime()), j['EEG1'], j['EEG2'], j['EEG3'], j['EEG4'], j['AUX_LEFT'], j['AUX_RIGHT']))
         return 'success'
